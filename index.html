@@ -2,42 +2,579 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SmartSlots — Coming Soon</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SmartSlots — AI-powered timetable scheduling</title>
+  <meta name="description" content="SmartSlots — AI-powered timetable scheduling for higher education" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* small custom tweaks */
+    .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.05); }
+    .accent { background: linear-gradient(90deg,#6366f1,#06b6d4); -webkit-background-clip:text; color:transparent; }
+    .logo-placeholder { background: linear-gradient(135deg,#06b6d4,#6366f1); height:48px; width:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; color:white; font-weight:700; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; } /* simple */
+  </style>
 </head>
-<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white flex items-center justify-center min-h-screen">
-  <div class="max-w-3xl mx-auto text-center px-4">
-    <!-- Heading -->
-    <h1 class="text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500 animate-pulse">
-      🚀 SmartSlots is Coming Soon!
-    </h1>
-    <p class="text-gray-300 mb-8">
-      We’re working hard to launch something amazing. Stay tuned!
-    </p>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white antialiased">
 
-    <!-- Image -->
-    <div class="flex justify-center mb-8">
-      <img src="Screenshot 2025-09-02 224729.png" alt="Coming Soon" class="rounded-2xl shadow-lg max-h-96 object-contain">
+  <!-- NAV -->
+  <nav class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <!-- Replace this div with <img src='assets/logo.png'> if you have a logo -->
+      <div class="logo-placeholder">SS</div>
+      <div>
+        <div class="text-sm font-semibold">SmartSlots</div>
+        <div class="text-xs text-slate-400">AI-powered timetable scheduling</div>
+      </div>
     </div>
+    <div class="flex items-center gap-3">
+      <a href="#features" class="text-sm text-slate-300 hover:text-white">Features</a>
+      <a href="#how" class="text-sm text-slate-300 hover:text-white">How it works</a>
+      <button id="btnHeroLogin" class="ml-4 rounded-full px-4 py-2 text-sm font-semibold glass hover:opacity-95">Login</button>
+    </div>
+  </nav>
 
-    <!-- Notify form (static for now) -->
-    <form onsubmit="event.preventDefault()" class="flex flex-col sm:flex-row items-center justify-center gap-2">
-      <input type="email" placeholder="Enter your email" 
-        class="px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-pink-500 focus:outline-none w-full sm:w-80" />
-      <button class="px-6 py-3 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 font-semibold hover:opacity-90 transition">
-        Notify Me
-      </button>
-    </form>
+  <!-- HERO -->
+  <header class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <div class="space-y-6">
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+          SmartSlots — <span class="accent">AI-powered timetable scheduling</span>
+        </h1>
+        <p class="text-slate-300 max-w-xl">
+          Automate timetable generation for higher education. Reduce clashes, respect faculty availability, and deliver optimized timetables in minutes.
+        </p>
 
-    <!-- Footer -->
-    <p class="mt-8 text-sm text-gray-500">
-      © <span id="year"></span> SmartSlots. All rights reserved.
-    </p>
+        <div class="flex items-center gap-3">
+          <button id="ctaLogin" class="rounded-full px-6 py-3 bg-indigo-600 hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-400 font-semibold">Login to Continue</button>
+          <button id="ctaDemo" class="rounded-full px-6 py-3 glass text-sm">Try Demo</button>
+        </div>
+
+        <div class="mt-4 text-sm text-slate-400">
+          For now we start with <strong>Admin</strong>. Student & Faculty UIs come next.
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="rounded-2xl overflow-hidden glass p-6">
+          <!-- demo visual / screenshot -->
+          <div class="h-64 w-full rounded-xl overflow-hidden bg-gradient-to-tr from-indigo-700 to-cyan-600 flex items-center justify-center">
+            <div class="text-center px-6">
+              <div class="text-2xl font-semibold">Coming Soon — SmartSlots</div>
+              <div class="text-sm text-slate-100/80 mt-2">Upload your beautiful hero image in <code>assets/hero.png</code> and replace this box.</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mt-4">
+            <div class="p-3 rounded-xl glass">
+              <div class="text-xs text-slate-300">Departments</div>
+              <div id="statDept" class="text-lg font-semibold">0</div>
+            </div>
+            <div class="p-3 rounded-xl glass">
+              <div class="text-xs text-slate-300">Faculties</div>
+              <div id="statFac" class="text-lg font-semibold">0</div>
+            </div>
+            <div class="p-3 rounded-xl glass">
+              <div class="text-xs text-slate-300">Rooms</div>
+              <div id="statRooms" class="text-lg font-semibold">0</div>
+            </div>
+            <div class="p-3 rounded-xl glass">
+              <div class="text-xs text-slate-300">Subjects</div>
+              <div id="statSubj" class="text-lg font-semibold">0</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FEATURES -->
+  <section id="features" class="max-w-7xl mx-auto px-6 mt-12">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass rounded-xl p-6">
+        <h3 class="font-semibold">Fast Timetables</h3>
+        <p class="text-slate-300 text-sm mt-2">Optimized schedules that respect constraints and availability.</p>
+      </div>
+      <div class="glass rounded-xl p-6">
+        <h3 class="font-semibold">Role-based UI</h3>
+        <p class="text-slate-300 text-sm mt-2">Admin, Dept Head, Faculty, Student (phased rollout).</p>
+      </div>
+      <div class="glass rounded-xl p-6">
+        <h3 class="font-semibold">AI Assistance</h3>
+        <p class="text-slate-300 text-sm mt-2">Suggests assignments & resolves clashes using optimization heuristics.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section id="how" class="max-w-7xl mx-auto px-6 mt-10">
+    <div class="glass rounded-xl p-6">
+      <h3 class="text-lg font-semibold">Admin Input Parameters (quick view)</h3>
+      <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm text-slate-300">
+        <div>
+          <strong>Institution</strong>
+          <ul class="mt-2 list-disc ml-5">
+            <li>Academic Year / Semester</li>
+            <li>Departments, Programs, Batches</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Resources</strong>
+          <ul class="mt-2 list-disc ml-5">
+            <li>Classrooms & Labs (cap, availability)</li>
+            <li>Faculty (skills, workload, prefs)</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Rules</strong>
+          <ul class="mt-2 list-disc ml-5">
+            <li>Slots/day, Slot duration, Breaks</li>
+            <li>Max classes per faculty/batch, fixed slots</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN APP (hidden until login/demo) -->
+  <main id="app" class="max-w-7xl mx-auto px-6 mt-10 hidden">
+    <div class="grid md:grid-cols-6 gap-6">
+      <!-- SIDEBAR -->
+      <aside class="md:col-span-1 glass p-4 rounded-xl h-[70vh] overflow-auto scrollbar-hide">
+        <div class="text-sm text-slate-300 mb-4">Logged in as <strong id="roleBadge">Admin</strong></div>
+        <nav class="space-y-2 text-sm">
+          <button data-panel="dashboard" class="navBtn w-full text-left p-2 rounded-md hover:bg-white/5">📊 Dashboard</button>
+          <button data-panel="input" class="navBtn w-full text-left p-2 rounded-md hover:bg-white/5">📝 Input Data</button>
+          <button data-panel="generate" class="navBtn w-full text-left p-2 rounded-md hover:bg-white/5">⚡ Generate Timetable</button>
+          <button data-panel="viewer" class="navBtn w-full text-left p-2 rounded-md hover:bg-white/5">📅 Timetable Viewer</button>
+          <button data-panel="approval" class="navBtn w-full text-left p-2 rounded-md hover:bg-white/5">✅ Approval Workflow</button>
+        </nav>
+
+        <div class="mt-6">
+          <button id="logout" class="w-full rounded-md py-2 bg-red-600 hover:bg-red-500 font-semibold">Logout</button>
+        </div>
+      </aside>
+
+      <!-- MAIN AREA -->
+      <section class="md:col-span-5 glass p-6 rounded-xl min-h-[70vh]">
+        <!-- DASHBOARD PANEL -->
+        <div id="panel-dashboard" class="panel">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold">Hi, Admin 👋</h2>
+            <div class="text-sm text-slate-300">Quick overview</div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+            <div class="p-4 rounded-xl bg-gradient-to-tr from-indigo-700 to-cyan-600">
+              <div class="text-xs">Faculties</div>
+              <div id="cardFac" class="text-2xl font-bold">0</div>
+            </div>
+            <div class="p-4 rounded-xl bg-gradient-to-tr from-pink-600 to-indigo-600">
+              <div class="text-xs">Classrooms</div>
+              <div id="cardRooms" class="text-2xl font-bold">0</div>
+            </div>
+            <div class="p-4 rounded-xl bg-gradient-to-tr from-emerald-600 to-cyan-600">
+              <div class="text-xs">Batches</div>
+              <div id="cardBatches" class="text-2xl font-bold">0</div>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <h3 class="font-semibold">Recent Activity</h3>
+            <div id="activity" class="mt-3 text-sm text-slate-300">No actions yet.</div>
+          </div>
+        </div>
+
+        <!-- INPUT DATA PANEL -->
+        <div id="panel-input" class="panel hidden">
+          <h2 class="text-xl font-semibold">Input Data</h2>
+          <p class="text-sm text-slate-300 mt-1">Add departments, classrooms, faculty and subjects.</p>
+
+          <div class="grid md:grid-cols-2 gap-6 mt-6">
+            <!-- Departments -->
+            <div class="p-4 rounded-xl glass">
+              <h4 class="font-semibold">Departments</h4>
+              <div class="mt-3 flex gap-2">
+                <input id="deptName" placeholder="Department name (e.g., CSE)" class="flex-1 px-3 py-2 rounded-md bg-slate-800"/>
+                <button id="addDept" class="px-3 py-2 rounded-md bg-indigo-600">Add</button>
+              </div>
+              <ul id="deptList" class="mt-3 text-sm text-slate-300"></ul>
+            </div>
+
+            <!-- Classrooms -->
+            <div class="p-4 rounded-xl glass">
+              <h4 class="font-semibold">Classrooms / Labs</h4>
+              <input id="roomName" placeholder="Room ID (Room-101)" class="w-full px-3 py-2 rounded-md bg-slate-800"/>
+              <div class="flex gap-2 mt-2">
+                <input id="roomCap" placeholder="Capacity" type="number" class="flex-1 px-3 py-2 rounded-md bg-slate-800"/>
+                <select id="roomType" class="px-3 py-2 rounded-md bg-slate-800">
+                  <option value="Lecture">Lecture Hall</option>
+                  <option value="Lab">Lab</option>
+                  <option value="Seminar">Seminar</option>
+                </select>
+                <button id="addRoom" class="px-3 py-2 rounded-md bg-indigo-600">Add</button>
+              </div>
+              <ul id="roomList" class="mt-3 text-sm text-slate-300"></ul>
+            </div>
+
+            <!-- Faculty -->
+            <div class="p-4 rounded-xl glass md:col-span-1">
+              <h4 class="font-semibold">Faculty</h4>
+              <input id="facName" placeholder="Faculty name" class="w-full px-3 py-2 rounded-md bg-slate-800 mt-2"/>
+              <select id="facDept" class="w-full mt-2 px-3 py-2 rounded-md bg-slate-800"></select>
+              <input id="facMaxLoad" placeholder="Max hours/week" type="number" class="w-full px-3 py-2 rounded-md bg-slate-800 mt-2"/>
+              <button id="addFac" class="mt-2 px-3 py-2 rounded-md bg-indigo-600">Add Faculty</button>
+              <ul id="facList" class="mt-3 text-sm text-slate-300"></ul>
+            </div>
+
+            <!-- Subjects -->
+            <div class="p-4 rounded-xl glass md:col-span-1">
+              <h4 class="font-semibold">Subjects</h4>
+              <input id="subCode" placeholder="Subject code (CSE101)" class="w-full px-3 py-2 rounded-md bg-slate-800 mt-2"/>
+              <input id="subName" placeholder="Subject name" class="w-full px-3 py-2 rounded-md bg-slate-800 mt-2"/>
+              <select id="subType" class="w-full mt-2 px-3 py-2 rounded-md bg-slate-800">
+                <option value="Core">Core</option>
+                <option value="Elective">Elective</option>
+                <option value="Lab">Lab</option>
+              </select>
+              <input id="subHours" placeholder="Hours/week" type="number" class="w-full px-3 py-2 rounded-md bg-slate-800 mt-2"/>
+              <button id="addSub" class="mt-2 px-3 py-2 rounded-md bg-indigo-600">Add Subject</button>
+              <ul id="subList" class="mt-3 text-sm text-slate-300"></ul>
+            </div>
+          </div>
+
+          <!-- Timetable rules -->
+          <div class="mt-6 p-4 rounded-xl glass">
+            <h4 class="font-semibold">Timetable Rules / Constraints</h4>
+            <div class="grid md:grid-cols-3 gap-3 mt-3">
+              <div>
+                <label class="text-sm text-slate-300">Working days</label>
+                <select id="ruleDays" class="w-full px-3 py-2 rounded-md bg-slate-800">
+                  <option>Mon-Fri</option>
+                  <option>Mon-Sat</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-sm text-slate-300">Slots per day</label>
+                <input id="ruleSlots" type="number" value="6" class="w-full px-3 py-2 rounded-md bg-slate-800"/>
+              </div>
+              <div>
+                <label class="text-sm text-slate-300">Slot duration (mins)</label>
+                <input id="ruleDuration" type="number" value="50" class="w-full px-3 py-2 rounded-md bg-slate-800"/>
+              </div>
+            </div>
+
+            <div class="mt-3 text-sm text-slate-300">
+              Add other special fixed slots or faculty exceptions in the next release.
+            </div>
+          </div>
+        </div>
+
+        <!-- GENERATE PANEL -->
+        <div id="panel-generate" class="panel hidden">
+          <h2 class="text-xl font-semibold">Generate Timetable</h2>
+          <p class="text-slate-300 text-sm mt-1">Choose options and run the generator (demo engine).</p>
+
+          <div class="mt-6 space-y-4">
+            <div class="p-4 rounded-xl glass">
+              <label class="text-sm text-slate-300">Select Program / Batch (demo)</label>
+              <select id="genBatch" class="w-full px-3 py-2 rounded-md bg-slate-800">
+                <option>All batches</option>
+              </select>
+            </div>
+
+            <div class="flex gap-3">
+              <button id="runGen" class="px-6 py-3 rounded-xl bg-emerald-600 font-semibold">Run Generator</button>
+              <button id="exportCSV" class="px-6 py-3 rounded-xl glass">Export (CSV)</button>
+            </div>
+
+            <div id="genLog" class="mt-4 text-sm text-slate-300">Generator not run yet.</div>
+          </div>
+        </div>
+
+        <!-- VIEWER -->
+        <div id="panel-viewer" class="panel hidden">
+          <h2 class="text-xl font-semibold">Timetable Viewer</h2>
+          <div id="ttView" class="mt-4 text-sm text-slate-300">No timetable generated yet.</div>
+        </div>
+
+        <!-- APPROVAL -->
+        <div id="panel-approval" class="panel hidden">
+          <h2 class="text-xl font-semibold">Approval Workflow</h2>
+          <p class="text-slate-300 text-sm mt-1">Review and approve generated timetables (demo).</p>
+          <div id="approvalList" class="mt-4 text-sm text-slate-300">No items to approve.</div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- LOGIN MODAL -->
+  <div id="loginModal" class="fixed inset-0 bg-black/60 flex items-center justify-center hidden">
+    <div class="bg-slate-900 rounded-2xl w-full max-w-md p-6 glass">
+      <h3 class="text-lg font-semibold">Login</h3>
+      <p class="text-sm text-slate-300 mt-1">Choose role and sign in (demo, no auth).</p>
+
+      <div class="mt-4 space-y-3">
+        <input id="loginEmail" placeholder="Email or username" class="w-full px-3 py-2 rounded-md bg-slate-800"/>
+        <input id="loginPass" placeholder="Password" type="password" class="w-full px-3 py-2 rounded-md bg-slate-800"/>
+        <select id="loginRole" class="w-full px-3 py-2 rounded-md bg-slate-800">
+          <option>Admin</option>
+          <option>Department Head</option>
+          <option>Faculty</option>
+          <option>Student</option>
+        </select>
+        <div class="flex gap-3">
+          <button id="doLogin" class="flex-1 px-4 py-2 rounded-md bg-indigo-600">Sign in</button>
+          <button id="closeLogin" class="flex-1 px-4 py-2 rounded-md glass">Cancel</button>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- FOOTER -->
+  <footer class="max-w-7xl mx-auto px-6 mt-16 pb-12 text-sm text-slate-400">
+    © <span id="year"></span> SmartSlots — AI timetable scheduler • Made for Higher Ed
+  </footer>
+
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // small app state persisted in localStorage
+    const state = {
+      departments: JSON.parse(localStorage.getItem('ss_depts')||'[]'),
+      rooms: JSON.parse(localStorage.getItem('ss_rooms')||'[]'),
+      faculty: JSON.parse(localStorage.getItem('ss_fac')||'[]'),
+      subjects: JSON.parse(localStorage.getItem('ss_sub')||'[]'),
+      timetables: JSON.parse(localStorage.getItem('ss_tt')||'[]'),
+    };
+
+    // utilities
+    const saveState = () => {
+      localStorage.setItem('ss_depts', JSON.stringify(state.departments));
+      localStorage.setItem('ss_rooms', JSON.stringify(state.rooms));
+      localStorage.setItem('ss_fac', JSON.stringify(state.faculty));
+      localStorage.setItem('ss_sub', JSON.stringify(state.subjects));
+      localStorage.setItem('ss_tt', JSON.stringify(state.timetables));
+      refreshStats();
+    };
+
+    // initial DOM refs
+    const refs = {
+      deptList: document.getElementById('deptList'),
+      roomList: document.getElementById('roomList'),
+      facList: document.getElementById('facList'),
+      subList: document.getElementById('subList'),
+      cardFac: document.getElementById('cardFac'),
+      cardRooms: document.getElementById('cardRooms'),
+      cardBatches: document.getElementById('cardBatches'),
+      statDept: document.getElementById('statDept'),
+      statFac: document.getElementById('statFac'),
+      statRooms: document.getElementById('statRooms'),
+      statSubj: document.getElementById('statSubj'),
+      activity: document.getElementById('activity'),
+    };
+
+    // render helpers
+    function renderList() {
+      refs.deptList.innerHTML = state.departments.map((d,i)=>`<li class="flex justify-between gap-2"><span>${d}</span><button data-i="${i}" class="rmDept text-xs text-red-400">Remove</button></li>`).join('')||'<li class="text-slate-400">No departments</li>';
+      refs.roomList.innerHTML = state.rooms.map((r,i)=>`<li class="flex justify-between gap-2"><span>${r.name} — ${r.type} (${r.cap})</span><button data-i="${i}" class="rmRoom text-xs text-red-400">Remove</button></li>`).join('')||'<li class="text-slate-400">No rooms</li>';
+      refs.facList.innerHTML = state.faculty.map((f,i)=>`<li class="flex justify-between gap-2"><span>${f.name} — ${f.dept} (${f.maxLoad}h)</span><button data-i="${i}" class="rmFac text-xs text-red-400">Remove</button></li>`).join('')||'<li class="text-slate-400">No faculty</li>';
+      refs.subList.innerHTML = state.subjects.map((s,i)=>`<li class="flex justify-between gap-2"><span>${s.code} — ${s.name} (${s.hours}h/w)</span><button data-i="${i}" class="rmSub text-xs text-red-400">Remove</button></li>`).join('')||'<li class="text-slate-400">No subjects</li>';
+      populateSelects();
+      updateCards();
+    }
+
+    function populateSelects(){
+      const facDept = document.getElementById('facDept');
+      facDept.innerHTML = '<option value="">Select Dept</option>' + state.departments.map(d=>`<option>${d}</option>`).join('');
+      const genBatch = document.getElementById('genBatch');
+      genBatch.innerHTML = '<option>All batches</option>';
+    }
+
+    function updateCards(){
+      refs.cardFac.textContent = state.faculty.length;
+      refs.cardRooms.textContent = state.rooms.length;
+      refs.cardBatches.textContent = Math.max(0, state.departments.length);
+      refs.statDept.textContent = state.departments.length;
+      refs.statFac.textContent = state.faculty.length;
+      refs.statRooms.textContent = state.rooms.length;
+      refs.statSubj.textContent = state.subjects.length;
+    }
+
+    function refreshStats(){
+      renderList();
+      saveState();
+    }
+
+    // add handlers
+    document.getElementById('addDept').addEventListener('click', ()=>{
+      const v = document.getElementById('deptName').value.trim();
+      if(!v) return alert('Enter department name');
+      state.departments.push(v);
+      document.getElementById('deptName').value='';
+      logActivity(`Added department: ${v}`);
+      refreshStats();
+    });
+
+    document.getElementById('addRoom').addEventListener('click', ()=>{
+      const name = document.getElementById('roomName').value.trim();
+      const cap = document.getElementById('roomCap').value || '0';
+      const type = document.getElementById('roomType').value;
+      if(!name) return alert('Enter room id');
+      state.rooms.push({name, cap, type});
+      document.getElementById('roomName').value='';
+      document.getElementById('roomCap').value='';
+      logActivity(`Added room: ${name}`);
+      refreshStats();
+    });
+
+    document.getElementById('addFac').addEventListener('click', ()=>{
+      const name = document.getElementById('facName').value.trim();
+      const dept = document.getElementById('facDept').value;
+      const maxLoad = document.getElementById('facMaxLoad').value || '0';
+      if(!name) return alert('Enter faculty name');
+      if(!dept) return alert('Select department');
+      state.faculty.push({name, dept, maxLoad});
+      document.getElementById('facName').value='';
+      document.getElementById('facMaxLoad').value='';
+      logActivity(`Added faculty: ${name}`);
+      refreshStats();
+    });
+
+    document.getElementById('addSub').addEventListener('click', ()=>{
+      const code = document.getElementById('subCode').value.trim();
+      const name = document.getElementById('subName').value.trim();
+      const type = document.getElementById('subType').value;
+      const hours = document.getElementById('subHours').value || '0';
+      if(!code || !name) return alert('Enter subject code and name');
+      state.subjects.push({code, name, type, hours});
+      document.getElementById('subCode').value='';
+      document.getElementById('subName').value='';
+      document.getElementById('subHours').value='';
+      logActivity(`Added subject: ${code}`);
+      refreshStats();
+    });
+
+    // remove actions (delegated)
+    document.addEventListener('click', (e)=>{
+      if(e.target.classList.contains('rmDept')){
+        const i = +e.target.dataset.i;
+        logActivity(`Removed department: ${state.departments[i]}`);
+        state.departments.splice(i,1); refreshStats();
+      }
+      if(e.target.classList.contains('rmRoom')){
+        const i = +e.target.dataset.i;
+        logActivity(`Removed room: ${state.rooms[i].name}`);
+        state.rooms.splice(i,1); refreshStats();
+      }
+      if(e.target.classList.contains('rmFac')){
+        const i = +e.target.dataset.i;
+        logActivity(`Removed faculty: ${state.faculty[i].name}`);
+        state.faculty.splice(i,1); refreshStats();
+      }
+      if(e.target.classList.contains('rmSub')){
+        const i = +e.target.dataset.i;
+        logActivity(`Removed subject: ${state.subjects[i].code}`);
+        state.subjects.splice(i,1); refreshStats();
+      }
+    });
+
+    // nav + panels
+    document.querySelectorAll('.navBtn').forEach(btn=>{
+      btn.addEventListener('click', ()=> {
+        document.querySelectorAll('.panel').forEach(p=>p.classList.add('hidden'));
+        document.getElementById('panel-'+btn.dataset.panel).classList.remove('hidden');
+      });
+    });
+
+    // login flow (demo)
+    const loginModal = document.getElementById('loginModal');
+    document.getElementById('btnHeroLogin').addEventListener('click', ()=> loginModal.classList.remove('hidden'));
+    document.getElementById('ctaLogin').addEventListener('click', ()=> loginModal.classList.remove('hidden'));
+    document.getElementById('closeLogin').addEventListener('click', ()=> loginModal.classList.add('hidden'));
+    document.getElementById('doLogin').addEventListener('click', ()=>{
+      const role = document.getElementById('loginRole').value;
+      const email = document.getElementById('loginEmail').value.trim();
+      if(!email) return alert('Enter email/username (demo)');
+      // set basic session
+      sessionStorage.setItem('ss_user', JSON.stringify({email, role}));
+      loginModal.classList.add('hidden');
+      showApp();
+    });
+
+    document.getElementById('logout').addEventListener('click', ()=>{
+      sessionStorage.removeItem('ss_user');
+      hideApp();
+    });
+
+    function showApp(){
+      document.getElementById('app').classList.remove('hidden');
+      document.querySelector('header').classList.add('hidden'); // hide hero for demo
+      const user = JSON.parse(sessionStorage.getItem('ss_user')||'null');
+      document.getElementById('roleBadge').textContent = user?.role||'Admin';
+      // show dashboard panel
+      document.querySelectorAll('.panel').forEach(p=>p.classList.add('hidden'));
+      document.getElementById('panel-dashboard').classList.remove('hidden');
+      renderList();
+    }
+    function hideApp(){
+      document.getElementById('app').classList.add('hidden');
+      document.querySelector('header').classList.remove('hidden');
+    }
+
+    // demo login via 'Try Demo'
+    document.getElementById('ctaDemo').addEventListener('click', ()=>{
+      sessionStorage.setItem('ss_user', JSON.stringify({email:'demo@smartslots', role:'Admin'}));
+      showApp();
+    });
+
+    // generator (mock)
+    document.getElementById('runGen').addEventListener('click', ()=>{
+      // simple checks
+      if(state.departments.length===0 || state.subjects.length===0 || state.faculty.length===0 || state.rooms.length===0) {
+        alert('Please add at least one department, subject, faculty, and room before generating.');
+        return;
+      }
+      // fake generation
+      document.getElementById('genLog').textContent = 'Running generator... (this is a demo)';
+      setTimeout(()=>{
+        const tt = {
+          id: Date.now(),
+          generatedAt: new Date().toISOString(),
+          summary: `Generated timetable for ${state.departments.length} dept(s), ${state.subjects.length} subject(s).`
+        };
+        state.timetables.push(tt);
+        saveState();
+        document.getElementById('genLog').textContent = 'Generation complete. Preview available in Timetable Viewer.';
+        document.getElementById('ttView').innerHTML = `<div class="p-4 rounded-md glass"><strong>Timetable ID:</strong> ${tt.id}<br><small>${tt.summary}</small></div>`;
+        document.getElementById('approvalList').innerHTML = `<div class="p-3 rounded-md glass">Timetable ${tt.id} awaiting approval</div>`;
+        logActivity('Generated timetable (demo)');
+      }, 1000);
+    });
+
+    // export CSV (demo)
+    document.getElementById('exportCSV').addEventListener('click', ()=>{
+      const rows = [['Type','Count'], ['Departments', state.departments.length], ['Faculty', state.faculty.length], ['Rooms', state.rooms.length], ['Subjects', state.subjects.length]];
+      const csv = rows.map(r=>r.join(',')).join('\n');
+      const blob = new Blob([csv], {type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download='smartslots-summary.csv'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    function logActivity(msg){
+      const t = new Date().toLocaleString();
+      refs.activity.innerHTML = `<div>${t} — ${msg}</div>` + refs.activity.innerHTML;
+    }
+
+    // load saved on startup
+    (function init(){
+      renderList();
+      const user = JSON.parse(sessionStorage.getItem('ss_user')||'null');
+      if(user) showApp();
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+
   </script>
+
 </body>
 </html>

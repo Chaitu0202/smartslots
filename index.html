@@ -3,256 +3,449 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Superposition Solutions Pvt Ltd | SmartSlots Hiring</title>
+  <title>Superposition Solutions Pvt Ltd | SmartSlots Careers</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
     body {
-      background: linear-gradient(to bottom right, #0b1120, #111827, #1f2937);
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.22), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(168,85,247,0.18), transparent 30%),
+        linear-gradient(135deg, #07111f, #0f172a, #111827);
+      overflow-x: hidden;
+      color: white;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 9999px;
+      filter: blur(40px);
+      opacity: 0.45;
+      pointer-events: none;
+      z-index: 0;
+      animation: floaty 8s ease-in-out infinite alternate;
+    }
+
+    .orb1 {
+      width: 220px;
+      height: 220px;
+      top: 30px;
+      left: 30px;
+      background: #3b82f6;
+    }
+
+    .orb2 {
+      width: 250px;
+      height: 250px;
+      bottom: 40px;
+      right: 40px;
+      background: #8b5cf6;
+      animation-duration: 10s;
+    }
+
+    .orb3 {
+      width: 180px;
+      height: 180px;
+      top: 42%;
+      left: 48%;
+      background: #06b6d4;
+      animation-duration: 7s;
+    }
+
+    @keyframes floaty {
+      from { transform: translateY(0) translateX(0) scale(1); }
+      to { transform: translateY(-20px) translateX(16px) scale(1.08); }
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp .8s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tab-btn {
+      transition: all .25s ease;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      box-shadow: 0 12px 25px rgba(59,130,246,0.3);
+      transform: translateY(-1px);
+    }
+
+    .role-panel { display: none; }
+    .role-panel.active { display: block; }
+
+    .avatar-3d {
+      width: 110px;
+      height: 110px;
+      border-radius: 24px;
+      position: relative;
+      background: linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 35px rgba(0,0,0,.28);
+      transform-style: preserve-3d;
+      animation: tilt 4s ease-in-out infinite alternate;
+      margin: 0 auto;
+    }
+
+    .avatar-3d::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #60a5fa, #8b5cf6);
+      transform: translateZ(20px);
+    }
+
+    .avatar-3d::after {
+      content: "👨‍💻";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      transform: translateZ(35px);
+    }
+
+    @keyframes tilt {
+      from { transform: rotateX(8deg) rotateY(-8deg); }
+      to { transform: rotateX(-5deg) rotateY(9deg); }
+    }
+
+    .input {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      padding: 12px 14px;
+      outline: none;
+      transition: all .25s ease;
+    }
+
+    .input::placeholder { color: rgba(255,255,255,0.55); }
+
+    .input:focus {
+      border-color: rgba(96,165,250,0.85);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.18);
+      background: rgba(255,255,255,0.11);
+    }
+
+    select.input option {
+      color: #111827;
+    }
+
+    .small-card {
+      transition: all .25s ease;
+    }
+
+    .small-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      transition: all .25s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(59,130,246,.3);
+    }
+
+    .note {
+      background: rgba(245, 158, 11, 0.10);
+      border: 1px solid rgba(251, 191, 36, 0.24);
+    }
+
+    @media (max-width: 1024px) {
+      .main-wrap {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .avatar-3d {
+        width: 90px;
+        height: 90px;
+      }
+      .avatar-3d::after {
+        font-size: 30px;
+      }
     }
   </style>
 </head>
-<body class="text-white font-sans">
+<body>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
 
-  <!-- Hero Section -->
-  <section class="min-h-screen flex items-center justify-center px-6 py-12">
-    <div class="max-w-7xl w-full grid lg:grid-cols-2 gap-10 items-center">
-      
-      <!-- Left Content -->
-      <div>
-        <div class="inline-block bg-blue-600/20 text-blue-300 border border-blue-500/30 rounded-full px-4 py-1 text-sm mb-5">
-          Early Stage Startup Hiring Opportunity
-        </div>
+  <main class="relative z-10 min-h-screen flex items-center justify-center p-4 md:p-6">
+    <div class="w-full max-w-7xl glass rounded-[30px] overflow-hidden fade-up">
+      <div class="main-wrap grid lg:grid-cols-2 min-h-[760px]">
 
-        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
-          Superposition Solutions Pvt Ltd
-        </h1>
+        <!-- Left -->
+        <section class="p-6 md:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-between">
+          <div>
+            <span class="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium border border-blue-400/20 bg-blue-500/10 text-blue-200">
+              Early Stage Startup Hiring
+            </span>
 
-        <p class="mt-4 text-xl md:text-2xl text-blue-300 font-semibold">
-          Building SmartSlots – Automatic Timetable Scheduling System
-        </p>
+            <h1 class="mt-6 text-3xl md:text-5xl font-extrabold leading-tight">
+              Superposition Solutions Pvt Ltd
+            </h1>
 
-        <p class="mt-6 text-gray-300 text-lg leading-relaxed">
-          We are looking for passionate <span class="text-white font-semibold">Interns</span> and 
-          <span class="text-white font-semibold">Employees / Core Team Members</span> to help us build our first startup product.
-          This is a real-world startup opportunity for people who want to work on a meaningful product from the ground level.
-        </p>
+            <p class="mt-4 text-lg md:text-2xl text-blue-200 font-semibold">
+              SmartSlots — Automatic Timetable Scheduling System
+            </p>
 
-        <div class="mt-8 bg-yellow-500/10 border border-yellow-400/30 rounded-2xl p-5">
-          <h3 class="text-yellow-300 font-bold text-lg mb-2">Important Note</h3>
-          <p class="text-gray-200 leading-relaxed">
-            As we are in the early startup phase, we are currently unable to provide salary for the first 4 months.
-            However, you will receive real product-building exposure, practical startup experience, and an opportunity to grow with the company.
-            From the <span class="font-semibold text-white">5th month onward</span>, salary can be provided based on performance and company progress.
-          </p>
-        </div>
+            <p class="mt-5 text-white/80 leading-relaxed text-base md:text-lg">
+              We are looking for passionate people to join us as
+              <span class="font-semibold text-white">Interns</span> and
+              <span class="font-semibold text-white">Employees / Core Team Members</span>
+              to build our first product.
+            </p>
 
-        <div class="mt-8 flex flex-wrap gap-4">
-          <a href="#apply" onclick="setRole('Intern')" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-semibold shadow-lg transition">
-            Request to be an Intern
-          </a>
-          <a href="#apply" onclick="setRole('Employee')" class="bg-white text-gray-900 hover:bg-gray-100 px-6 py-3 rounded-xl font-semibold shadow-lg transition">
-            Request to be an Employee
-          </a>
-        </div>
+            <div class="mt-6 rounded-2xl p-4 md:p-5 note">
+              <h3 class="text-yellow-300 font-bold text-lg">Important Note</h3>
+              <p class="mt-2 text-sm md:text-base text-white/85 leading-relaxed">
+                As a startup, we are unable to provide salary for the first 4 months.
+                But you will get real product exposure, startup execution experience, and live team collaboration.
+                From the 5th month, salary can be considered based on performance and growth.
+              </p>
+            </div>
+
+            <div class="mt-8 grid sm:grid-cols-3 gap-4">
+              <div class="small-card glass rounded-2xl p-4 text-center">
+                <div class="avatar-3d"></div>
+                <p class="mt-4 font-semibold">Real Work</p>
+                <p class="mt-1 text-sm text-white/70">Build an actual startup product.</p>
+              </div>
+
+              <div class="small-card glass rounded-2xl p-4 text-center">
+                <div class="avatar-3d" style="animation-delay:.7s;"></div>
+                <p class="mt-4 font-semibold">Startup Exposure</p>
+                <p class="mt-1 text-sm text-white/70">Learn execution, product, and teamwork.</p>
+              </div>
+
+              <div class="small-card glass rounded-2xl p-4 text-center">
+                <div class="avatar-3d" style="animation-delay:1.2s;"></div>
+                <p class="mt-4 font-semibold">Growth Path</p>
+                <p class="mt-1 text-sm text-white/70">Top performers can move into paid roles.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 text-sm text-white/55">
+            © 2026 Superposition Solutions Pvt Ltd • SmartSlots Careers
+          </div>
+        </section>
+
+        <!-- Right -->
+        <section class="p-6 md:p-10 lg:p-12 flex items-center">
+          <div class="w-full">
+            <div class="flex flex-col sm:flex-row gap-3 mb-6">
+              <button id="internBtn" class="tab-btn active w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 border border-white/10 font-semibold">
+                Request to be an Intern
+              </button>
+              <button id="employeeBtn" class="tab-btn w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 border border-white/10 font-semibold">
+                Request to be an Employee
+              </button>
+            </div>
+
+            <div class="glass rounded-3xl p-5 md:p-7">
+              <div id="internPanel" class="role-panel active">
+                <h2 class="text-2xl md:text-3xl font-bold">Apply as Intern</h2>
+                <p class="mt-2 text-white/70">
+                  Fill your details to apply for internship opportunities in SmartSlots.
+                </p>
+              </div>
+
+              <div id="employeePanel" class="role-panel">
+                <h2 class="text-2xl md:text-3xl font-bold">Apply as Employee</h2>
+                <p class="mt-2 text-white/70">
+                  Fill your details to apply for core team / employee opportunities in SmartSlots.
+                </p>
+              </div>
+
+              <form id="applicationForm"
+                    action="https://formsubmit.co/chaitanyadogga0@gmail.com"
+                    method="POST"
+                    class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <!-- FormSubmit hidden fields -->
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_subject" value="New SmartSlots Hiring Application">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_autoresponse" value="Thank you for applying to Superposition Solutions Pvt Ltd for SmartSlots. We have received your details and will review them soon.">
+                <input type="hidden" id="roleTypeHidden" name="Application Type" value="Intern">
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">Full Name</label>
+                  <input class="input" type="text" name="Full Name" placeholder="Enter your full name" required>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">Email Address</label>
+                  <input class="input" type="email" name="Email Address" placeholder="Enter your email" required>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">Phone Number</label>
+                  <input class="input" type="tel" name="Phone Number" placeholder="Enter your phone number" required>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">Applying As</label>
+                  <select class="input" id="roleSelect" name="Applying As" required>
+                    <option value="Intern">Intern</option>
+                    <option value="Employee">Employee</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">College / Company</label>
+                  <input class="input" type="text" name="College or Company" placeholder="Enter college or company name">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">Degree / Branch / Background</label>
+                  <input class="input" type="text" name="Degree / Branch / Background" placeholder="e.g. B.Tech CSE">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">Year of Study / Experience</label>
+                  <input class="input" type="text" name="Year of Study / Experience" placeholder="e.g. 3rd Year / Fresher">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">Preferred Role</label>
+                  <input class="input" type="text" name="Preferred Role" placeholder="e.g. Frontend Developer">
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="block text-sm font-medium mb-2">Skills</label>
+                  <input class="input" type="text" name="Skills" placeholder="e.g. HTML, CSS, JS, React, Python, UI/UX">
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="block text-sm font-medium mb-2">LinkedIn / GitHub / Portfolio</label>
+                  <input class="input" type="url" name="Portfolio Link" placeholder="Paste your LinkedIn / GitHub / portfolio link">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">City</label>
+                  <input class="input" type="text" name="City" placeholder="Enter your city">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">Work Preference</label>
+                  <select class="input" name="Work Preference">
+                    <option value="">Select preference</option>
+                    <option value="Remote">Remote</option>
+                    <option value="Offline">Offline</option>
+                    <option value="Hybrid">Hybrid</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">Available From</label>
+                  <input class="input" type="date" name="Available From">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-2">Can work unpaid for first 4 months?</label>
+                  <select class="input" name="Unpaid First 4 Months Consent" required>
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="block text-sm font-medium mb-2">Why do you want to join us?</label>
+                  <textarea class="input min-h-[120px]" name="Why Join Us" placeholder="Tell us why you want to join SmartSlots"></textarea>
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="block text-sm font-medium mb-2">Resume Link</label>
+                  <input class="input" type="url" name="Resume Link" placeholder="Paste Google Drive or resume link">
+                </div>
+
+                <div class="md:col-span-2">
+                  <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75">
+                    By submitting, you acknowledge that this is an early-stage startup opportunity and immediate salary is not guaranteed for the first 4 months.
+                  </div>
+                </div>
+
+                <div class="md:col-span-2">
+                  <button type="submit" class="submit-btn w-full rounded-xl py-4 font-bold text-lg">
+                    Submit Application
+                  </button>
+                </div>
+              </form>
+
+              <p class="mt-4 text-xs text-white/50">
+                First submission may require email verification from FormSubmit in your Gmail inbox.
+              </p>
+            </div>
+          </div>
+        </section>
+
       </div>
-
-      <!-- Right Content -->
-      <div class="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-8 shadow-2xl">
-        <h2 class="text-2xl font-bold mb-6">Why Join SmartSlots?</h2>
-
-        <div class="grid gap-4">
-          <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
-            <h3 class="font-semibold text-blue-300">Real Startup Exposure</h3>
-            <p class="text-gray-300 text-sm mt-1">Work on an actual SaaS product designed for engineering institutions.</p>
-          </div>
-
-          <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
-            <h3 class="font-semibold text-blue-300">Build from Ground Up</h3>
-            <p class="text-gray-300 text-sm mt-1">Be part of product development, feature building, testing, and growth.</p>
-          </div>
-
-          <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
-            <h3 class="font-semibold text-blue-300">Growth Opportunity</h3>
-            <p class="text-gray-300 text-sm mt-1">Top contributors may grow into paid and long-term positions from the 5th month onward.</p>
-          </div>
-
-          <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
-            <h3 class="font-semibold text-blue-300">Certificates & Recognition</h3>
-            <p class="text-gray-300 text-sm mt-1">Gain valuable experience, startup recognition, and professional credibility.</p>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </section>
-
-  <!-- Roles Section -->
-  <section class="px-6 py-16">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-3xl font-bold text-center mb-12">Open Opportunities</h2>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white/10 border border-white/10 rounded-3xl p-8">
-          <h3 class="text-2xl font-bold text-blue-300 mb-4">Intern Roles</h3>
-          <ul class="space-y-3 text-gray-200">
-            <li>• Frontend Development Intern</li>
-            <li>• Backend Development Intern</li>
-            <li>• Full Stack Development Intern</li>
-            <li>• AI / ML Intern</li>
-            <li>• UI / UX Design Intern</li>
-            <li>• Marketing & Outreach Intern</li>
-            <li>• Operations Intern</li>
-          </ul>
-        </div>
-
-        <div class="bg-white/10 border border-white/10 rounded-3xl p-8">
-          <h3 class="text-2xl font-bold text-white mb-4">Employee / Core Team Roles</h3>
-          <ul class="space-y-3 text-gray-200">
-            <li>• Full Stack Developer</li>
-            <li>• Product Developer</li>
-            <li>• Business Development Executive</li>
-            <li>• Campus Outreach Lead</li>
-            <li>• Startup Operations Executive</li>
-            <li>• Technical Team Lead</li>
-            <li>• Product Growth Associate</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Application Form -->
-  <section id="apply" class="px-6 py-16">
-    <div class="max-w-4xl mx-auto bg-white text-gray-900 rounded-3xl shadow-2xl p-8 md:p-10">
-      <h2 class="text-3xl font-bold mb-2">Interest Application Form</h2>
-      <p class="text-gray-600 mb-8">
-        Fill in your details if you are interested in joining Superposition Solutions Pvt Ltd and contributing to SmartSlots.
-      </p>
-
-      <form class="grid md:grid-cols-2 gap-6">
-        <div>
-          <label class="block font-semibold mb-2">Full Name</label>
-          <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your full name" />
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-2">Email Address</label>
-          <input type="email" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your email" />
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-2">Phone Number</label>
-          <input type="tel" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your phone number" />
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-2">Applying As</label>
-          <select id="roleSelect" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="">Select role type</option>
-            <option value="Intern">Intern</option>
-            <option value="Employee">Employee</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-2">College / Company</label>
-          <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your college or current company" />
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-2">Degree / Branch / Background</label>
-          <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g. B.Tech CSE / MBA / Designer" />
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-2">Year of Study / Experience</label>
-          <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g. 3rd Year / 1 year experience" />
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-2">Preferred Role</label>
-          <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g. Frontend Developer" />
-        </div>
-
-        <div class="md:col-span-2">
-          <label class="block font-semibold mb-2">Skills</label>
-          <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g. HTML, CSS, React, Python, Marketing, UI/UX" />
-        </div>
-
-        <div class="md:col-span-2">
-          <label class="block font-semibold mb-2">LinkedIn / GitHub / Portfolio</label>
-          <input type="url" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Paste your profile or portfolio link" />
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-2">City</label>
-          <input type="text" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your city" />
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-2">Work Preference</label>
-          <select class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option>Remote</option>
-            <option>Offline</option>
-            <option>Hybrid</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-2">Available From</label>
-          <input type="date" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-
-        <div>
-          <label class="block font-semibold mb-2">Can you work in the unpaid startup phase for first 4 months?</label>
-          <select class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="">Select</option>
-            <option>Yes</option>
-            <option>No</option>
-          </select>
-        </div>
-
-        <div class="md:col-span-2">
-          <label class="block font-semibold mb-2">Why do you want to join us?</label>
-          <textarea rows="5" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tell us why you are interested in joining SmartSlots and Superposition Solutions Pvt Ltd"></textarea>
-        </div>
-
-        <div class="md:col-span-2">
-          <label class="block font-semibold mb-2">Resume Link (Optional)</label>
-          <input type="url" class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Paste Google Drive / Resume link" />
-        </div>
-
-        <div class="md:col-span-2">
-          <div class="bg-gray-100 border border-gray-200 rounded-2xl p-4 text-sm text-gray-700">
-            By submitting this form, you acknowledge that this is an early-stage startup opportunity and immediate salary is not guaranteed for the first 4 months.
-          </div>
-        </div>
-
-        <div class="md:col-span-2">
-          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl text-lg transition shadow-lg">
-            Submit Application
-          </button>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="px-6 py-10 text-center text-gray-400 text-sm">
-    <p>© 2026 Superposition Solutions Pvt Ltd • SmartSlots Hiring Portal</p>
-    <p class="mt-2">Building the future of automatic timetable scheduling for institutions.</p>
-  </footer>
+  </main>
 
   <script>
-    function setRole(role) {
-      const roleSelect = document.getElementById("roleSelect");
-      if (roleSelect) {
-        roleSelect.value = role;
+    const internBtn = document.getElementById('internBtn');
+    const employeeBtn = document.getElementById('employeeBtn');
+    const internPanel = document.getElementById('internPanel');
+    const employeePanel = document.getElementById('employeePanel');
+    const roleSelect = document.getElementById('roleSelect');
+    const roleTypeHidden = document.getElementById('roleTypeHidden');
+
+    function switchRole(role) {
+      if (role === 'Intern') {
+        internBtn.classList.add('active');
+        employeeBtn.classList.remove('active');
+        internPanel.classList.add('active');
+        employeePanel.classList.remove('active');
+        roleSelect.value = 'Intern';
+        roleTypeHidden.value = 'Intern';
+      } else {
+        employeeBtn.classList.add('active');
+        internBtn.classList.remove('active');
+        employeePanel.classList.add('active');
+        internPanel.classList.remove('active');
+        roleSelect.value = 'Employee';
+        roleTypeHidden.value = 'Employee';
       }
     }
+
+    internBtn.addEventListener('click', () => switchRole('Intern'));
+    employeeBtn.addEventListener('click', () => switchRole('Employee'));
+
+    roleSelect.addEventListener('change', function () {
+      switchRole(this.value);
+    });
   </script>
 </body>
 </html>

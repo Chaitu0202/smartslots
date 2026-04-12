@@ -263,10 +263,10 @@
         <section class="p-6 md:p-10 lg:p-12 flex items-center">
           <div class="w-full">
             <div class="flex flex-col sm:flex-row gap-3 mb-6">
-              <button id="internBtn" class="tab-btn active w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 border border-white/10 font-semibold">
+              <button id="internBtn" type="button" class="tab-btn active w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 border border-white/10 font-semibold">
                 Request to be an Intern
               </button>
-              <button id="employeeBtn" class="tab-btn w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 border border-white/10 font-semibold">
+              <button id="employeeBtn" type="button" class="tab-btn w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 border border-white/10 font-semibold">
                 Request to be an Employee
               </button>
             </div>
@@ -291,11 +291,19 @@
                     method="POST"
                     class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                <!-- FormSubmit hidden fields -->
                 <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_subject" value="New SmartSlots Hiring Application">
+                <input type="hidden" name="_subject" value="New Application | SmartSlots Hiring | Superposition Solutions">
                 <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_autoresponse" value="Thank you for applying to Superposition Solutions Pvt Ltd for SmartSlots. We have received your details and will review them soon.">
+                <input type="hidden" name="_autoresponse" value="Hi there,
+
+Thank you for showing interest in Superposition Solutions Pvt Ltd and applying for SmartSlots 🚀.
+
+We have successfully received your application. Our team will carefully review your profile and get back to you within 2 days.
+
+We appreciate your enthusiasm to be part of our startup journey.
+
+Best regards,
+Team Superposition Solutions Pvt Ltd">
                 <input type="hidden" id="roleTypeHidden" name="Application Type" value="Intern">
 
                 <div>
@@ -305,7 +313,7 @@
 
                 <div>
                   <label class="block text-sm font-medium mb-2">Email Address</label>
-                  <input class="input" type="email" name="Email Address" placeholder="Enter your email" required>
+                  <input class="input" type="email" name="email" placeholder="Enter your email" required>
                 </div>
 
                 <div>

@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SmartSlots | Screening Registration</title>
+  <title>SmartSlots Screening Registration</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     * { box-sizing: border-box; }
 
-    body {
+    html, body {
       margin: 0;
-      min-height: 100vh;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       font-family: Inter, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(59,130,246,0.20), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(168,85,247,0.16), transparent 30%),
+        radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(168,85,247,0.16), transparent 28%),
         linear-gradient(135deg, #07111f, #0f172a, #111827);
       color: white;
-      overflow-x: hidden;
     }
 
     .glass {
@@ -32,62 +33,51 @@
       position: fixed;
       border-radius: 9999px;
       filter: blur(40px);
-      opacity: 0.45;
+      opacity: 0.4;
       pointer-events: none;
       z-index: 0;
       animation: floaty 8s ease-in-out infinite alternate;
     }
 
     .orb1 {
-      width: 220px;
-      height: 220px;
+      width: 180px;
+      height: 180px;
       top: 20px;
       left: 20px;
       background: #3b82f6;
     }
 
     .orb2 {
-      width: 250px;
-      height: 250px;
-      bottom: 30px;
-      right: 30px;
+      width: 220px;
+      height: 220px;
+      right: 20px;
+      bottom: 20px;
       background: #8b5cf6;
       animation-duration: 10s;
     }
 
-    .orb3 {
-      width: 180px;
-      height: 180px;
-      top: 40%;
-      left: 48%;
-      background: #06b6d4;
-      animation-duration: 7s;
-    }
-
     @keyframes floaty {
       from { transform: translateY(0) translateX(0) scale(1); }
-      to { transform: translateY(-18px) translateX(15px) scale(1.06); }
+      to { transform: translateY(-15px) translateX(12px) scale(1.05); }
     }
 
     .input {
       width: 100%;
-      border-radius: 14px;
+      border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.08);
       color: white;
-      padding: 12px 14px;
+      padding: 10px 12px;
       outline: none;
-      transition: all .25s ease;
+      transition: all .2s ease;
+      font-size: 14px;
     }
 
-    .input::placeholder {
-      color: rgba(255,255,255,0.55);
-    }
+    .input::placeholder { color: rgba(255,255,255,0.5); }
 
     .input:focus {
       border-color: rgba(96,165,250,0.85);
       box-shadow: 0 0 0 3px rgba(59,130,246,0.18);
-      background: rgba(255,255,255,0.11);
     }
 
     select.input option {
@@ -95,24 +85,22 @@
     }
 
     .tab-btn {
-      transition: all .25s ease;
+      transition: all .2s ease;
     }
 
     .tab-btn.active {
       background: linear-gradient(135deg, #2563eb, #7c3aed);
-      color: white;
-      box-shadow: 0 12px 25px rgba(59,130,246,0.3);
-      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(59,130,246,0.28);
     }
 
     .submit-btn {
       background: linear-gradient(135deg, #2563eb, #7c3aed);
-      transition: all .25s ease;
+      transition: all .2s ease;
     }
 
     .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(59,130,246,.3);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(59,130,246,0.28);
     }
 
     .entry-card {
@@ -126,33 +114,46 @@
       border: 1px solid rgba(96,165,250,0.20);
     }
 
-    .badge-yellow {
-      background: rgba(245,158,11,0.12);
-      color: #fde68a;
-      border: 1px solid rgba(251,191,36,0.22);
-    }
-
     .badge-green {
       background: rgba(16,185,129,0.14);
       color: #a7f3d0;
       border: 1px solid rgba(52,211,153,0.2);
     }
 
-    .danger-btn {
-      transition: all .25s ease;
+    .mini-scroll {
+      overflow-y: auto;
+      min-height: 0;
     }
 
-    .danger-btn:hover {
-      transform: translateY(-1px);
+    .mini-scroll::-webkit-scrollbar {
+      width: 6px;
     }
 
-    .hidden-soft {
-      display: none;
+    .mini-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.18);
+      border-radius: 999px;
     }
 
     @media (max-width: 1024px) {
-      .main-grid {
+      .layout {
         grid-template-columns: 1fr !important;
+        grid-template-rows: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        padding: 10px;
+      }
+      .compact-title {
+        font-size: 1.6rem;
+        line-height: 1.1;
+      }
+      .compact-text {
+        font-size: 12px;
+      }
+      .section-pad {
+        padding: 14px;
       }
     }
   </style>
@@ -160,202 +161,135 @@
 <body>
   <div class="orb orb1"></div>
   <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
 
-  <main class="relative z-10 min-h-screen p-4 md:p-6">
-    <div class="max-w-7xl mx-auto">
-      <!-- Top notice -->
-      <section class="glass rounded-[28px] p-6 md:p-8 mb-6">
-        <div class="flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between">
-          <div class="max-w-4xl">
-            <div class="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium badge-blue">
-              Official Screening Registration
+  <main class="relative z-10 w-full h-full shell p-3 md:p-4">
+    <div class="w-full h-full max-w-7xl mx-auto glass rounded-[28px] overflow-hidden">
+      <div class="layout grid lg:grid-cols-[0.95fr_1.05fr] h-full">
+
+        <!-- Left -->
+        <section class="section-pad p-4 md:p-6 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col min-h-0">
+          <div class="shrink-0">
+            <div class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium badge-blue">
+              Screening Registration
             </div>
 
-            <h1 class="mt-4 text-3xl md:text-5xl font-extrabold leading-tight">
-              Hello everyone
+            <h1 class="compact-title mt-3 text-3xl md:text-5xl font-extrabold leading-tight">
+              SmartSlots
             </h1>
 
-            <p class="mt-4 text-white/85 text-base md:text-lg leading-relaxed">
-              Moving closer to the day of official inauguration, before fixing all the things,
-              the investors asked us to screen the fellow candidates who are actually interested
-              based on their availability. With that, we will be finalising the final list of
-              interns and employees.
+            <p class="mt-2 text-blue-200 text-sm md:text-lg font-semibold">
+              Final Screening Availability Form
             </p>
 
-            <p class="mt-4 text-white/80 text-base md:text-lg leading-relaxed">
-              Individual screening will be there for each and every candidate. Kindly register your availability.
+            <p class="compact-text mt-3 text-white/80 text-sm md:text-base leading-relaxed">
+              Register your availability for the individual screening process.
+              Final list of interns and employees will be shortlisted based on valid registration.
             </p>
-          </div>
 
-          <div class="glass rounded-3xl p-5 min-w-[280px]">
-            <div class="text-sm uppercase tracking-wide text-white/60">Important dates</div>
-
-            <div class="mt-4 space-y-3">
-              <div class="rounded-2xl p-4 badge-yellow">
-                <div class="text-sm font-semibold">Registration Deadline</div>
-                <div class="text-lg font-bold mt-1">5:00 PM • 15 April</div>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+              <div class="glass rounded-2xl p-3">
+                <div class="text-white/60 text-xs">Registration Deadline</div>
+                <div class="font-bold mt-1">5:00 PM • 15 April</div>
               </div>
-
-              <div class="rounded-2xl p-4 badge-green">
-                <div class="text-sm font-semibold">Scheduling Window</div>
-                <div class="text-lg font-bold mt-1">8:00 PM • 15 April</div>
-                <div class="text-sm mt-1">to 12:00 PM • 20 April</div>
+              <div class="glass rounded-2xl p-3">
+                <div class="text-white/60 text-xs">Scheduling Window</div>
+                <div class="font-bold mt-1">15 Apr 8:00 PM</div>
+                <div class="text-xs text-white/70">to 20 Apr 12:00 PM</div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <div class="main-grid grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
-        <!-- Left side -->
-        <section class="glass rounded-[28px] p-6 md:p-8">
-          <div class="flex flex-col sm:flex-row gap-3 mb-6">
-            <button id="internBtn" type="button" class="tab-btn active w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 border border-white/10 font-semibold">
-              Register as Intern
-            </button>
-            <button id="employeeBtn" type="button" class="tab-btn w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 border border-white/10 font-semibold">
-              Register as Employee
-            </button>
+            <div class="mt-4 flex gap-2">
+              <button id="internBtn" type="button" class="tab-btn active px-4 py-2 rounded-xl bg-white/10 border border-white/10 font-semibold text-sm">
+                Intern
+              </button>
+              <button id="employeeBtn" type="button" class="tab-btn px-4 py-2 rounded-xl bg-white/10 border border-white/10 font-semibold text-sm">
+                Employee
+              </button>
+            </div>
           </div>
 
-          <div class="glass rounded-3xl p-5 md:p-7">
-            <h2 id="formTitle" class="text-2xl md:text-3xl font-bold">Availability Registration</h2>
-            <p class="mt-2 text-white/70">
-              Submit your availability for the individual screening process.
-            </p>
+          <form id="registrationForm" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3 shrink-0">
+            <input type="hidden" id="roleHidden" value="Intern" />
 
-            <div id="deadlineBanner" class="mt-4 rounded-2xl p-4 badge-yellow text-sm">
-              Registration is open till <span class="font-bold">5:00 PM, 15 April</span>.
+            <div class="md:col-span-2">
+              <label class="block text-sm mb-1 text-white/80">Full Name</label>
+              <input id="fullName" class="input" type="text" placeholder="Enter full name" required />
             </div>
 
-            <form id="registrationForm" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input type="hidden" id="roleTypeHidden" value="Intern" />
+            <div>
+              <label class="block text-sm mb-1 text-white/80">College</label>
+              <input id="college" class="input" type="text" placeholder="Enter college name" required />
+            </div>
 
-              <div>
-                <label class="block text-sm font-medium mb-2">Full Name</label>
-                <input class="input" type="text" id="fullName" placeholder="Enter your full name" required>
+            <div>
+              <label class="block text-sm mb-1 text-white/80">Year of Study</label>
+              <select id="year" class="input" required>
+                <option value="">Select year</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+                <option>Passout</option>
+              </select>
+            </div>
+
+            <div class="md:col-span-2">
+              <label class="block text-sm mb-1 text-white/80">Choose Time Slot</label>
+              <select id="slot" class="input" required></select>
+            </div>
+
+            <div class="md:col-span-2">
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-3 text-xs md:text-sm text-white/75">
+                If a slot is already booked, it cannot be selected again. Please choose another available slot.
               </div>
+            </div>
 
-              <div>
-                <label class="block text-sm font-medium mb-2">Email Address</label>
-                <input class="input" type="email" id="email" placeholder="Enter your email" required>
-              </div>
+            <div class="md:col-span-2">
+              <button type="submit" class="submit-btn w-full rounded-xl py-3 font-bold text-base">
+                Register Slot
+              </button>
+            </div>
+          </form>
 
-              <div>
-                <label class="block text-sm font-medium mb-2">Phone Number</label>
-                <input class="input" type="tel" id="phone" placeholder="Enter your phone number" required>
-              </div>
+          <div id="message" class="mt-3 text-sm shrink-0"></div>
 
-              <div>
-                <label class="block text-sm font-medium mb-2">Applying As</label>
-                <select class="input" id="roleSelect" required>
-                  <option value="Intern">Intern</option>
-                  <option value="Employee">Employee</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium mb-2">College / Company</label>
-                <input class="input" type="text" id="college" placeholder="Enter college or company name">
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium mb-2">Degree / Experience</label>
-                <input class="input" type="text" id="background" placeholder="e.g. B.Tech CSE / 1 year exp">
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium mb-2">Preferred Role</label>
-                <input class="input" type="text" id="preferredRole" placeholder="e.g. Frontend Developer">
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium mb-2">City</label>
-                <input class="input" type="text" id="city" placeholder="Enter your city">
-              </div>
-
-              <div class="md:col-span-2">
-                <label class="block text-sm font-medium mb-2">Skills</label>
-                <input class="input" type="text" id="skills" placeholder="e.g. HTML, CSS, JS, React, Python">
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium mb-2">Preferred Screening Date</label>
-                <input class="input" type="date" id="screeningDate" required>
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium mb-2">Preferred Screening Time</label>
-                <input class="input" type="time" id="screeningTime" required>
-              </div>
-
-              <div class="md:col-span-2">
-                <label class="block text-sm font-medium mb-2">Why do you want to join?</label>
-                <textarea class="input min-h-[120px]" id="whyJoin" placeholder="Tell us why you want to join SmartSlots"></textarea>
-              </div>
-
-              <div class="md:col-span-2">
-                <label class="block text-sm font-medium mb-2">Portfolio / Resume Link</label>
-                <input class="input" type="url" id="resumeLink" placeholder="Paste portfolio, GitHub, LinkedIn or resume link">
-              </div>
-
-              <div class="md:col-span-2">
-                <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75">
-                  Only candidates who register within the deadline and choose a valid slot inside the scheduling window will be considered for screening.
-                </div>
-              </div>
-
-              <div class="md:col-span-2">
-                <button id="submitBtn" type="submit" class="submit-btn w-full rounded-xl py-4 font-bold text-lg">
-                  Register Availability
-                </button>
-              </div>
-            </form>
-
-            <div id="formMessage" class="mt-4 text-sm"></div>
+          <div class="mt-4 grid grid-cols-3 gap-3 shrink-0">
+            <div class="entry-card rounded-2xl p-3">
+              <div class="text-xs text-white/60">Total</div>
+              <div id="totalCount" class="text-xl font-bold mt-1">0</div>
+            </div>
+            <div class="entry-card rounded-2xl p-3">
+              <div class="text-xs text-white/60">Interns</div>
+              <div id="internCount" class="text-xl font-bold mt-1">0</div>
+            </div>
+            <div class="entry-card rounded-2xl p-3">
+              <div class="text-xs text-white/60">Employees</div>
+              <div id="employeeCount" class="text-xl font-bold mt-1">0</div>
+            </div>
           </div>
         </section>
 
-        <!-- Right side -->
-        <section class="glass rounded-[28px] p-6 md:p-8">
-          <div class="flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+        <!-- Right -->
+        <section class="section-pad p-4 md:p-6 flex flex-col min-h-0">
+          <div class="flex items-center justify-between gap-3 shrink-0">
             <div>
               <h2 class="text-2xl md:text-3xl font-bold">Registered Entries</h2>
-              <p class="mt-2 text-white/70">All submitted registrations stored in browser JSON.</p>
+              <p class="text-white/70 text-sm mt-1">Stored locally as JSON in browser.</p>
             </div>
-
             <div class="flex gap-2">
-              <button id="exportBtn" type="button" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 font-semibold">
+              <button id="exportBtn" type="button" class="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-sm font-semibold">
                 Export JSON
               </button>
-              <button id="clearBtn" type="button" class="danger-btn px-4 py-2 rounded-xl bg-red-600/90 hover:bg-red-700 font-semibold">
-                Clear All
+              <button id="clearBtn" type="button" class="px-3 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-sm font-semibold">
+                Clear
               </button>
             </div>
           </div>
 
-          <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="entry-card rounded-2xl p-4">
-              <div class="text-sm text-white/60">Total</div>
-              <div id="totalCount" class="text-2xl font-bold mt-1">0</div>
-            </div>
+          <div id="entriesWrap" class="mini-scroll mt-4 space-y-3 flex-1 pr-1"></div>
 
-            <div class="entry-card rounded-2xl p-4">
-              <div class="text-sm text-white/60">Interns</div>
-              <div id="internCount" class="text-2xl font-bold mt-1">0</div>
-            </div>
-
-            <div class="entry-card rounded-2xl p-4">
-              <div class="text-sm text-white/60">Employees</div>
-              <div id="employeeCount" class="text-2xl font-bold mt-1">0</div>
-            </div>
-          </div>
-
-          <div id="entriesContainer" class="mt-6 space-y-4"></div>
-
-          <div id="emptyState" class="mt-6 rounded-2xl p-6 border border-dashed border-white/15 text-white/60 text-center">
-            No entries yet.
+          <div id="emptyState" class="mt-4 rounded-2xl p-5 border border-dashed border-white/15 text-white/60 text-center">
+            No registrations yet.
           </div>
         </section>
       </div>
@@ -363,7 +297,7 @@
   </main>
 
   <script>
-    const STORAGE_KEY = "smartslots_screening_entries_v2";
+    const STORAGE_KEY = "smartslots_compact_screening_entries_v1";
 
     const REG_DEADLINE = new Date("2026-04-15T17:00:00");
     const SLOT_START = new Date("2026-04-15T20:00:00");
@@ -371,42 +305,32 @@
 
     const internBtn = document.getElementById("internBtn");
     const employeeBtn = document.getElementById("employeeBtn");
-    const roleSelect = document.getElementById("roleSelect");
-    const roleTypeHidden = document.getElementById("roleTypeHidden");
-    const formTitle = document.getElementById("formTitle");
+    const roleHidden = document.getElementById("roleHidden");
     const registrationForm = document.getElementById("registrationForm");
-    const formMessage = document.getElementById("formMessage");
-    const deadlineBanner = document.getElementById("deadlineBanner");
-    const submitBtn = document.getElementById("submitBtn");
-    const entriesContainer = document.getElementById("entriesContainer");
+    const slotSelect = document.getElementById("slot");
+    const messageBox = document.getElementById("message");
+    const entriesWrap = document.getElementById("entriesWrap");
     const emptyState = document.getElementById("emptyState");
-    const clearBtn = document.getElementById("clearBtn");
     const exportBtn = document.getElementById("exportBtn");
+    const clearBtn = document.getElementById("clearBtn");
 
     const totalCount = document.getElementById("totalCount");
     const internCount = document.getElementById("internCount");
     const employeeCount = document.getElementById("employeeCount");
 
     function switchRole(role) {
-      roleTypeHidden.value = role;
-      roleSelect.value = role;
-
+      roleHidden.value = role;
       if (role === "Intern") {
         internBtn.classList.add("active");
         employeeBtn.classList.remove("active");
-        formTitle.textContent = "Intern Availability Registration";
       } else {
         employeeBtn.classList.add("active");
         internBtn.classList.remove("active");
-        formTitle.textContent = "Employee Availability Registration";
       }
     }
 
     internBtn.addEventListener("click", () => switchRole("Intern"));
     employeeBtn.addEventListener("click", () => switchRole("Employee"));
-    roleSelect.addEventListener("change", function () {
-      switchRole(this.value);
-    });
 
     function getEntries() {
       try {
@@ -420,59 +344,45 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
     }
 
-    function formatDateTime(date) {
+    function formatDisplay(date) {
       return new Intl.DateTimeFormat("en-IN", {
         dateStyle: "medium",
         timeStyle: "short"
       }).format(date);
     }
 
-    function escapeHtml(text) {
-      const div = document.createElement("div");
-      div.innerText = text ?? "";
-      return div.innerHTML;
+    function getSlotOptions() {
+      const slots = [];
+      const current = new Date(SLOT_START);
+
+      while (current <= SLOT_END) {
+        slots.push({
+          value: current.toISOString(),
+          label: formatDisplay(current)
+        });
+        current.setHours(current.getHours() + 1);
+      }
+      return slots;
     }
 
-    function isRegistrationOpen() {
-      return new Date() <= REG_DEADLINE;
+    function populateSlots() {
+      const booked = new Set(getEntries().map(entry => entry.slotValue));
+      const slots = getSlotOptions();
+
+      slotSelect.innerHTML = `<option value="">Select available slot</option>`;
+
+      slots.forEach(slot => {
+        const option = document.createElement("option");
+        option.value = slot.value;
+        option.textContent = booked.has(slot.value)
+          ? `${slot.label} — Slot Filled`
+          : slot.label;
+        option.disabled = booked.has(slot.value);
+        slotSelect.appendChild(option);
+      });
     }
 
-    function validateSlot(dateStr, timeStr) {
-      if (!dateStr || !timeStr) {
-        return { valid: false, message: "Please select screening date and time." };
-      }
-
-      const selected = new Date(`${dateStr}T${timeStr}:00`);
-
-      if (isNaN(selected.getTime())) {
-        return { valid: false, message: "Invalid screening slot selected." };
-      }
-
-      if (selected < SLOT_START || selected > SLOT_END) {
-        return {
-          valid: false,
-          message: "Selected screening slot must be between 8:00 PM, 15 April and 12:00 PM, 20 April."
-        };
-      }
-
-      return { valid: true, selected };
-    }
-
-    function updateDeadlineUI() {
-      if (isRegistrationOpen()) {
-        deadlineBanner.className = "mt-4 rounded-2xl p-4 badge-yellow text-sm";
-        deadlineBanner.innerHTML = `Registration is open till <span class="font-bold">5:00 PM, 15 April</span>.`;
-        submitBtn.disabled = false;
-        submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
-      } else {
-        deadlineBanner.className = "mt-4 rounded-2xl p-4 bg-red-500/10 border border-red-400/20 text-red-200 text-sm";
-        deadlineBanner.innerHTML = `Registration closed at <span class="font-bold">5:00 PM, 15 April</span>.`;
-        submitBtn.disabled = true;
-        submitBtn.classList.add("opacity-50", "cursor-not-allowed");
-      }
-    }
-
-    function renderStats(entries) {
+    function updateStats(entries) {
       totalCount.textContent = entries.length;
       internCount.textContent = entries.filter(e => e.role === "Intern").length;
       employeeCount.textContent = entries.filter(e => e.role === "Employee").length;
@@ -480,9 +390,8 @@
 
     function renderEntries() {
       const entries = getEntries();
-      renderStats(entries);
-
-      entriesContainer.innerHTML = "";
+      updateStats(entries);
+      entriesWrap.innerHTML = "";
 
       if (!entries.length) {
         emptyState.style.display = "block";
@@ -491,144 +400,129 @@
 
       emptyState.style.display = "none";
 
-      entries
-        .slice()
-        .reverse()
-        .forEach((entry, reverseIndex) => {
-          const realIndex = entries.length - 1 - reverseIndex;
-
-          const card = document.createElement("div");
-          card.className = "entry-card rounded-2xl p-5";
-
-          card.innerHTML = `
-            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-              <div class="flex-1">
-                <div class="flex flex-wrap gap-2 mb-3">
-                  <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${entry.role === "Intern" ? "badge-blue" : "badge-green"}">
-                    ${escapeHtml(entry.role)}
-                  </span>
-                  <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-white/10 border border-white/10 text-white/80">
-                    Submitted: ${escapeHtml(entry.submittedAt)}
-                  </span>
-                </div>
-
-                <h3 class="text-xl font-bold">${escapeHtml(entry.fullName)}</h3>
-                <p class="mt-1 text-white/70">${escapeHtml(entry.email)} • ${escapeHtml(entry.phone)}</p>
-
-                <div class="mt-4 grid sm:grid-cols-2 gap-3 text-sm">
-                  <div><span class="text-white/50">College/Company:</span> ${escapeHtml(entry.college || "-")}</div>
-                  <div><span class="text-white/50">Background:</span> ${escapeHtml(entry.background || "-")}</div>
-                  <div><span class="text-white/50">Preferred Role:</span> ${escapeHtml(entry.preferredRole || "-")}</div>
-                  <div><span class="text-white/50">City:</span> ${escapeHtml(entry.city || "-")}</div>
-                  <div class="sm:col-span-2"><span class="text-white/50">Skills:</span> ${escapeHtml(entry.skills || "-")}</div>
-                  <div class="sm:col-span-2"><span class="text-white/50">Screening Slot:</span> ${escapeHtml(entry.screeningSlot)}</div>
-                  <div class="sm:col-span-2"><span class="text-white/50">Why Join:</span> ${escapeHtml(entry.whyJoin || "-")}</div>
-                  <div class="sm:col-span-2"><span class="text-white/50">Portfolio/Resume:</span> ${
-                    entry.resumeLink
-                      ? `<a class="text-blue-300 underline break-all" href="${escapeHtml(entry.resumeLink)}" target="_blank" rel="noopener noreferrer">${escapeHtml(entry.resumeLink)}</a>`
-                      : "-"
-                  }</div>
-                </div>
+      entries.slice().reverse().forEach((entry, idx) => {
+        const realIndex = entries.length - 1 - idx;
+        const card = document.createElement("div");
+        card.className = "entry-card rounded-2xl p-4";
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <div class="flex flex-wrap gap-2 mb-2">
+                <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${entry.role === "Intern" ? "badge-blue" : "badge-green"}">
+                  ${entry.role}
+                </span>
               </div>
 
-              <div>
-                <button data-index="${realIndex}" class="delete-entry px-4 py-2 rounded-xl bg-red-600/90 hover:bg-red-700 font-semibold text-sm">
-                  Delete
-                </button>
-              </div>
+              <h3 class="text-lg font-bold break-words">${escapeHtml(entry.fullName)}</h3>
+              <p class="text-sm text-white/75 mt-1">${escapeHtml(entry.college)}</p>
+              <p class="text-sm text-white/75">Year: ${escapeHtml(entry.year)}</p>
+              <p class="text-sm text-blue-200 mt-2 font-medium">${escapeHtml(entry.slotLabel)}</p>
             </div>
-          `;
 
-          entriesContainer.appendChild(card);
-        });
+            <button data-index="${realIndex}" class="deleteBtn shrink-0 px-3 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-xs font-semibold">
+              Delete
+            </button>
+          </div>
+        `;
+        entriesWrap.appendChild(card);
+      });
 
-      document.querySelectorAll(".delete-entry").forEach(btn => {
+      document.querySelectorAll(".deleteBtn").forEach(btn => {
         btn.addEventListener("click", function () {
-          const index = Number(this.getAttribute("data-index"));
+          const index = Number(this.dataset.index);
           const entries = getEntries();
           entries.splice(index, 1);
           saveEntries(entries);
+          populateSlots();
           renderEntries();
         });
       });
     }
 
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.innerText = text ?? "";
+      return div.innerHTML;
+    }
+
+    function showMessage(text, type = "success") {
+      messageBox.className = "mt-3 text-sm";
+      messageBox.classList.add(type === "success" ? "text-green-300" : "text-red-300");
+      messageBox.textContent = text;
+    }
+
     registrationForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      formMessage.textContent = "";
-      formMessage.className = "mt-4 text-sm";
 
-      if (!isRegistrationOpen()) {
-        formMessage.classList.add("text-red-300");
-        formMessage.textContent = "Registration deadline is over. New entries are closed.";
+      const now = new Date();
+      if (now > REG_DEADLINE) {
+        showMessage("Registration closed. Deadline was 5:00 PM, 15 April.", "error");
         return;
       }
 
-      const slotValidation = validateSlot(
-        document.getElementById("screeningDate").value,
-        document.getElementById("screeningTime").value
-      );
+      const fullName = document.getElementById("fullName").value.trim();
+      const college = document.getElementById("college").value.trim();
+      const year = document.getElementById("year").value;
+      const slotValue = slotSelect.value;
+      const role = roleHidden.value;
 
-      if (!slotValidation.valid) {
-        formMessage.classList.add("text-red-300");
-        formMessage.textContent = slotValidation.message;
+      if (!fullName || !college || !year || !slotValue) {
+        showMessage("Please fill all fields.", "error");
         return;
       }
-
-      const entry = {
-        fullName: document.getElementById("fullName").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        phone: document.getElementById("phone").value.trim(),
-        role: roleTypeHidden.value,
-        college: document.getElementById("college").value.trim(),
-        background: document.getElementById("background").value.trim(),
-        preferredRole: document.getElementById("preferredRole").value.trim(),
-        city: document.getElementById("city").value.trim(),
-        skills: document.getElementById("skills").value.trim(),
-        whyJoin: document.getElementById("whyJoin").value.trim(),
-        resumeLink: document.getElementById("resumeLink").value.trim(),
-        screeningDate: document.getElementById("screeningDate").value,
-        screeningTime: document.getElementById("screeningTime").value,
-        screeningSlot: formatDateTime(slotValidation.selected),
-        submittedAt: formatDateTime(new Date())
-      };
 
       const entries = getEntries();
+
+      const alreadyTaken = entries.some(entry => entry.slotValue === slotValue);
+      if (alreadyTaken) {
+        populateSlots();
+        showMessage("This slot is already booked. Please choose another slot.", "error");
+        return;
+      }
+
+      const selectedDate = new Date(slotValue);
+      const entry = {
+        fullName,
+        college,
+        year,
+        role,
+        slotValue,
+        slotLabel: formatDisplay(selectedDate),
+        createdAt: new Date().toISOString()
+      };
+
       entries.push(entry);
       saveEntries(entries);
 
       registrationForm.reset();
       switchRole("Intern");
-
-      formMessage.classList.add("text-green-300");
-      formMessage.textContent = "Availability registered successfully.";
+      populateSlots();
       renderEntries();
-      updateDeadlineUI();
-    });
-
-    clearBtn.addEventListener("click", function () {
-      const ok = confirm("Are you sure you want to clear all registered entries?");
-      if (!ok) return;
-      localStorage.removeItem(STORAGE_KEY);
-      renderEntries();
+      showMessage("Registration successful.");
     });
 
     exportBtn.addEventListener("click", function () {
-      const entries = getEntries();
-      const blob = new Blob([JSON.stringify(entries, null, 2)], { type: "application/json" });
+      const data = JSON.stringify(getEntries(), null, 2);
+      const blob = new Blob([data], { type: "application/json" });
       const url = URL.createObjectURL(blob);
-
       const a = document.createElement("a");
       a.href = url;
-      a.download = "smartslots-screening-entries.json";
+      a.download = "smartslots-registrations.json";
       a.click();
-
       URL.revokeObjectURL(url);
     });
 
+    clearBtn.addEventListener("click", function () {
+      if (!confirm("Clear all registrations?")) return;
+      localStorage.removeItem(STORAGE_KEY);
+      populateSlots();
+      renderEntries();
+      showMessage("All registrations cleared.");
+    });
+
     switchRole("Intern");
+    populateSlots();
     renderEntries();
-    updateDeadlineUI();
   </script>
 </body>
 </html>

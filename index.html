@@ -1,528 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SmartSlots Screening Registration</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartSlots | Page Under Construction</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
     body {
-      background:
-        radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(168,85,247,0.16), transparent 28%),
-        linear-gradient(135deg, #07111f, #0f172a, #111827);
+      margin: 0;
       min-height: 100vh;
+      font-family: Inter, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.2), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(168,85,247,0.18), transparent 30%),
+        linear-gradient(135deg, #020617, #0f172a, #111827);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
     .glass {
       background: rgba(255,255,255,0.08);
       backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     }
-    .input {
-      width: 100%;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.08);
-      color: white;
-      padding: 12px 14px;
-      outline: none;
-      transition: all .25s ease;
+
+    .float {
+      animation: float 4s ease-in-out infinite alternate;
     }
-    .input::placeholder {
-      color: rgba(255,255,255,0.55);
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-12px); }
     }
-    .input:focus {
-      border-color: rgba(96,165,250,0.85);
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.18);
-      background: rgba(255,255,255,0.11);
-    }
-    select.input option {
-      color: #111827;
-    }
-    .tab-btn {
-      transition: all .25s ease;
-    }
-    .tab-btn.active {
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
-      color: white;
-      box-shadow: 0 12px 25px rgba(59,130,246,0.3);
-      transform: translateY(-1px);
+
+    .glow {
+      box-shadow: 0 0 40px rgba(59,130,246,0.4);
     }
   </style>
 </head>
-<body class="text-white font-sans">
-  <div class="max-w-7xl mx-auto px-4 py-6 md:py-10">
-    <div class="glass rounded-3xl overflow-hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-10 gap-0">
 
-        <!-- LEFT 70% -->
-        <section class="lg:col-span-7 p-5 md:p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-white/10">
-          <div class="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium bg-blue-500/10 border border-blue-400/20 text-blue-200">
-            Screening Registration
-          </div>
+<body>
 
-          <h1 class="mt-5 text-3xl md:text-5xl font-extrabold leading-tight">
-            SmartSlots Final Screening
-          </h1>
+  <div class="glass max-w-2xl w-full rounded-3xl p-8 md:p-12 text-center">
 
-          <p class="mt-4 text-blue-200 text-lg md:text-xl font-semibold">
-            Interns & Employees Availability Registration
-          </p>
+    <!-- Logo / Icon -->
+    <div class="text-6xl float mb-6">🚧</div>
 
-          <div class="mt-5 grid md:grid-cols-2 gap-4">
-            <div class="glass rounded-2xl p-4">
-              <div class="text-sm text-white/60">Registration Deadline</div>
-              <div class="text-xl font-bold mt-1">5:00 PM • 15 April</div>
-            </div>
-            <div class="glass rounded-2xl p-4">
-              <div class="text-sm text-white/60">Screening Slots</div>
-              <div class="text-xl font-bold mt-1">After 6:00 PM</div>
-              <div class="text-sm text-white/70 mt-1">15-minute gap between slots</div>
-            </div>
-          </div>
+    <!-- Heading -->
+    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+      We’re Working On It
+    </h1>
 
-          <div class="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 text-white/80 leading-relaxed">
-            Hello everyone, moving closer to the day of official inauguration, the investors asked us to screen the genuinely interested candidates based on their availability. The final list of interns and employees will be prepared based on these registrations. Individual screening will be conducted for each candidate.
-          </div>
+    <!-- Subtext -->
+    <p class="text-white/80 text-lg mb-6 leading-relaxed">
+      Our SmartSlots Hiring Portal is currently under development.<br>
+      We’re building something powerful for screening and onboarding.
+    </p>
 
-          <div class="mt-6 flex flex-wrap gap-3">
-            <button id="internBtn" type="button" class="tab-btn active px-5 py-3 rounded-xl bg-white/10 border border-white/10 font-semibold">
-              Register as Intern
-            </button>
-            <button id="employeeBtn" type="button" class="tab-btn px-5 py-3 rounded-xl bg-white/10 border border-white/10 font-semibold">
-              Register as Employee
-            </button>
-          </div>
-
-          <form id="registrationForm" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="hidden" id="roleHidden" value="Intern" />
-
-            <div class="md:col-span-2">
-              <label class="block text-sm font-medium mb-2">Full Name</label>
-              <input id="fullName" class="input" type="text" placeholder="Enter full name" required />
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium mb-2">College</label>
-              <input id="college" class="input" type="text" placeholder="Enter college name" required />
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium mb-2">Year of Study</label>
-              <select id="year" class="input" required>
-                <option value="">Select year</option>
-                <option>1st Year</option>
-                <option>2nd Year</option>
-                <option>3rd Year</option>
-                <option>4th Year</option>
-                <option>Passout</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium mb-2">Phone Number</label>
-              <input id="phone" class="input" type="tel" placeholder="Enter phone number" required />
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium mb-2">Email Address</label>
-              <input id="email" class="input" type="email" placeholder="Enter email address" required />
-            </div>
-
-            <div class="md:col-span-2">
-              <label class="block text-sm font-medium mb-2">Choose Time Slot</label>
-              <select id="slot" class="input" required></select>
-            </div>
-
-            <div class="md:col-span-2">
-              <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75">
-                Time slots are available only in the evening after 6:00 PM, with 15-minute intervals. If a slot is already booked, choose another available slot.
-              </div>
-            </div>
-
-            <div class="md:col-span-2">
-              <button type="submit" class="w-full rounded-xl py-4 font-bold text-lg bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 transition">
-                Register Now
-              </button>
-            </div>
-          </form>
-
-          <div id="message" class="mt-4 text-sm"></div>
-        </section>
-
-        <!-- RIGHT 30% -->
-        <aside class="lg:col-span-3 p-5 md:p-6 bg-white/5">
-          <div class="flex items-center justify-between gap-3">
-            <div>
-              <h2 class="text-2xl font-bold">Registered Entries</h2>
-              <p class="text-sm text-white/65 mt-1">Stored in browser JSON</p>
-            </div>
-            <button id="exportBtn" type="button" class="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-sm font-semibold">
-              Export
-            </button>
-          </div>
-
-          <div class="grid grid-cols-3 gap-3 mt-5">
-            <div class="glass rounded-2xl p-3">
-              <div class="text-xs text-white/60">Total</div>
-              <div id="totalCount" class="text-xl font-bold mt-1">0</div>
-            </div>
-            <div class="glass rounded-2xl p-3">
-              <div class="text-xs text-white/60">Intern</div>
-              <div id="internCount" class="text-xl font-bold mt-1">0</div>
-            </div>
-            <div class="glass rounded-2xl p-3">
-              <div class="text-xs text-white/60">Emp</div>
-              <div id="employeeCount" class="text-xl font-bold mt-1">0</div>
-            </div>
-          </div>
-
-          <div class="mt-4 flex gap-2">
-            <button id="clearBtn" type="button" class="flex-1 px-3 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-sm font-semibold">
-              Clear All
-            </button>
-          </div>
-
-          <div id="entriesWrap" class="mt-5 space-y-3 max-h-[70vh] overflow-y-auto pr-1"></div>
-
-          <div id="emptyState" class="mt-5 rounded-2xl p-5 border border-dashed border-white/15 text-white/60 text-center">
-            No registrations yet.
-          </div>
-        </aside>
-      </div>
+    <!-- Highlight -->
+    <div class="bg-blue-500/10 border border-blue-400/20 rounded-xl p-4 mb-6">
+      <p class="text-blue-200 font-semibold">
+        🚀 Screening registrations & hiring system will be live soon
+      </p>
     </div>
+
+    <!-- Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+
+      <a href="https://www.smartslots.in/"
+         class="px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-105 transition glow">
+        Go to SmartSlots
+      </a>
+
+      <button onclick="window.history.back()"
+              class="px-6 py-3 rounded-xl font-semibold bg-white/10 border border-white/20 hover:bg-white/20 transition">
+        Go Back
+      </button>
+
+    </div>
+
+    <!-- Footer -->
+    <p class="mt-8 text-sm text-white/50">
+      Superposition Solutions Pvt Ltd • SmartSlots
+    </p>
+
   </div>
 
-  <script>
-    const STORAGE_KEY = "smartslots_screening_entries_v3";
-    const PASSWORD = "26042006";
-    const REG_DEADLINE = new Date("2026-04-15T17:00:00");
-    const SLOT_START_DATE = new Date("2026-04-15T18:00:00");
-    const SLOT_END_DATE = new Date("2026-04-20T23:45:00");
-
-    const internBtn = document.getElementById("internBtn");
-    const employeeBtn = document.getElementById("employeeBtn");
-    const roleHidden = document.getElementById("roleHidden");
-    const registrationForm = document.getElementById("registrationForm");
-    const slotSelect = document.getElementById("slot");
-    const messageBox = document.getElementById("message");
-    const entriesWrap = document.getElementById("entriesWrap");
-    const emptyState = document.getElementById("emptyState");
-    const totalCount = document.getElementById("totalCount");
-    const internCount = document.getElementById("internCount");
-    const employeeCount = document.getElementById("employeeCount");
-    const exportBtn = document.getElementById("exportBtn");
-    const clearBtn = document.getElementById("clearBtn");
-
-    function switchRole(role) {
-      roleHidden.value = role;
-      if (role === "Intern") {
-        internBtn.classList.add("active");
-        employeeBtn.classList.remove("active");
-      } else {
-        employeeBtn.classList.add("active");
-        internBtn.classList.remove("active");
-      }
-    }
-
-    internBtn.addEventListener("click", () => switchRole("Intern"));
-    employeeBtn.addEventListener("click", () => switchRole("Employee"));
-
-    function getEntries() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-      } catch {
-        return [];
-      }
-    }
-
-    function saveEntries(entries) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-    }
-
-    function formatDisplay(date) {
-      return new Intl.DateTimeFormat("en-IN", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true
-      }).format(date);
-    }
-
-    function isEveningTime(date) {
-      const hour = date.getHours();
-      return hour >= 18;
-    }
-
-    function getSlotOptions() {
-      const slots = [];
-      const current = new Date(SLOT_START_DATE);
-
-      while (current <= SLOT_END_DATE) {
-        if (isEveningTime(current)) {
-          slots.push({
-            value: current.toISOString(),
-            label: formatDisplay(current)
-          });
-        }
-        current.setMinutes(current.getMinutes() + 15);
-      }
-
-      return slots;
-    }
-
-    function populateSlots() {
-      const booked = new Set(getEntries().map(entry => entry.slotValue));
-      const slots = getSlotOptions();
-
-      slotSelect.innerHTML = `<option value="">Select available slot</option>`;
-
-      slots.forEach(slot => {
-        const option = document.createElement("option");
-        option.value = slot.value;
-        option.textContent = booked.has(slot.value)
-          ? `${slot.label} — Filled`
-          : slot.label;
-        option.disabled = booked.has(slot.value);
-        slotSelect.appendChild(option);
-      });
-    }
-
-    function showMessage(text, type = "success") {
-      messageBox.textContent = text;
-      messageBox.className = `mt-4 text-sm ${type === "success" ? "text-green-300" : "text-red-300"}`;
-    }
-
-    function escapeHtml(text) {
-      const div = document.createElement("div");
-      div.innerText = text ?? "";
-      return div.innerHTML;
-    }
-
-    function updateStats(entries) {
-      totalCount.textContent = entries.length;
-      internCount.textContent = entries.filter(e => e.role === "Intern").length;
-      employeeCount.textContent = entries.filter(e => e.role === "Employee").length;
-    }
-
-    function askPassword() {
-      const pass = prompt("Enter password");
-      return pass === PASSWORD;
-    }
-
-    function renderEntries() {
-      const entries = getEntries();
-      updateStats(entries);
-      entriesWrap.innerHTML = "";
-
-      if (!entries.length) {
-        emptyState.style.display = "block";
-        return;
-      }
-
-      emptyState.style.display = "none";
-
-      entries.slice().reverse().forEach((entry, idx) => {
-        const realIndex = entries.length - 1 - idx;
-        const card = document.createElement("div");
-        card.className = "glass rounded-2xl p-4";
-
-        card.innerHTML = `
-          <div class="flex items-start justify-between gap-3">
-            <div class="min-w-0">
-              <div class="flex flex-wrap gap-2 mb-2">
-                <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${entry.role === "Intern" ? "bg-blue-500/15 text-blue-200 border border-blue-400/20" : "bg-emerald-500/15 text-emerald-200 border border-emerald-400/20"}">
-                  ${escapeHtml(entry.role)}
-                </span>
-              </div>
-
-              <h3 class="text-lg font-bold break-words">${escapeHtml(entry.fullName)}</h3>
-              <p class="text-sm text-white/75 mt-1">${escapeHtml(entry.college)}</p>
-              <p class="text-sm text-white/75">Year: ${escapeHtml(entry.year)}</p>
-              <p class="text-sm text-white/75">Phone: ${escapeHtml(entry.phone)}</p>
-              <p class="text-sm text-white/75 break-all">Email: ${escapeHtml(entry.email)}</p>
-              <p class="text-sm text-blue-200 mt-2 font-medium">${escapeHtml(entry.slotLabel)}</p>
-            </div>
-
-            <div class="flex flex-col gap-2 shrink-0">
-              <button data-index="${realIndex}" class="editBtn px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-xs font-semibold">
-                Edit
-              </button>
-              <button data-index="${realIndex}" class="deleteBtn px-3 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-xs font-semibold">
-                Delete
-              </button>
-            </div>
-          </div>
-        `;
-
-        entriesWrap.appendChild(card);
-      });
-
-      document.querySelectorAll(".deleteBtn").forEach(btn => {
-        btn.addEventListener("click", function () {
-          if (!askPassword()) {
-            alert("Wrong password.");
-            return;
-          }
-          const index = Number(this.dataset.index);
-          const entries = getEntries();
-          entries.splice(index, 1);
-          saveEntries(entries);
-          populateSlots();
-          renderEntries();
-        });
-      });
-
-      document.querySelectorAll(".editBtn").forEach(btn => {
-        btn.addEventListener("click", function () {
-          if (!askPassword()) {
-            alert("Wrong password.");
-            return;
-          }
-
-          const index = Number(this.dataset.index);
-          const entries = getEntries();
-          const entry = entries[index];
-
-          const newName = prompt("Edit Full Name", entry.fullName);
-          if (newName === null) return;
-
-          const newCollege = prompt("Edit College", entry.college);
-          if (newCollege === null) return;
-
-          const newYear = prompt("Edit Year of Study", entry.year);
-          if (newYear === null) return;
-
-          const newPhone = prompt("Edit Phone Number", entry.phone);
-          if (newPhone === null) return;
-
-          const newEmail = prompt("Edit Email", entry.email);
-          if (newEmail === null) return;
-
-          let newSlot = prompt("Edit Slot ISO value or keep same", entry.slotValue);
-          if (newSlot === null) return;
-
-          const slotTaken = entries.some((e, i) => i !== index && e.slotValue === newSlot);
-          if (slotTaken) {
-            alert("That slot is already taken. Choose another slot.");
-            return;
-          }
-
-          const slotDate = new Date(newSlot);
-          if (isNaN(slotDate.getTime()) || !isEveningTime(slotDate)) {
-            alert("Invalid slot. Use a valid evening slot after 6 PM.");
-            return;
-          }
-
-          entries[index] = {
-            ...entry,
-            fullName: newName.trim(),
-            college: newCollege.trim(),
-            year: newYear.trim(),
-            phone: newPhone.trim(),
-            email: newEmail.trim(),
-            slotValue: newSlot,
-            slotLabel: formatDisplay(slotDate)
-          };
-
-          saveEntries(entries);
-          populateSlots();
-          renderEntries();
-        });
-      });
-    }
-
-    registrationForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      if (new Date() > REG_DEADLINE) {
-        showMessage("Registration closed. Deadline was 5:00 PM, 15 April.", "error");
-        return;
-      }
-
-      const fullName = document.getElementById("fullName").value.trim();
-      const college = document.getElementById("college").value.trim();
-      const year = document.getElementById("year").value;
-      const phone = document.getElementById("phone").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const slotValue = slotSelect.value;
-      const role = roleHidden.value;
-
-      if (!fullName || !college || !year || !phone || !email || !slotValue) {
-        showMessage("Please fill all fields.", "error");
-        return;
-      }
-
-      const entries = getEntries();
-
-      if (entries.some(entry => entry.slotValue === slotValue)) {
-        populateSlots();
-        showMessage("This slot is already fixed. Please choose another slot.", "error");
-        return;
-      }
-
-      const selectedDate = new Date(slotValue);
-
-      if (!isEveningTime(selectedDate)) {
-        showMessage("Choose only evening slots after 6 PM.", "error");
-        return;
-      }
-
-      const entry = {
-        fullName,
-        college,
-        year,
-        phone,
-        email,
-        role,
-        slotValue,
-        slotLabel: formatDisplay(selectedDate),
-        createdAt: new Date().toISOString()
-      };
-
-      entries.push(entry);
-      saveEntries(entries);
-
-      registrationForm.reset();
-      switchRole("Intern");
-      populateSlots();
-      renderEntries();
-      showMessage("Registration successful.");
-    });
-
-    exportBtn.addEventListener("click", function () {
-      const data = JSON.stringify(getEntries(), null, 2);
-      const blob = new Blob([data], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "smartslots-registrations.json";
-      a.click();
-      URL.revokeObjectURL(url);
-    });
-
-    clearBtn.addEventListener("click", function () {
-      if (!askPassword()) {
-        alert("Wrong password.");
-        return;
-      }
-      if (!confirm("Clear all registrations?")) return;
-      localStorage.removeItem(STORAGE_KEY);
-      populateSlots();
-      renderEntries();
-      showMessage("All registrations cleared.");
-    });
-
-    switchRole("Intern");
-    populateSlots();
-    renderEntries();
-  </script>
 </body>
 </html>
